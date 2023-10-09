@@ -1,7 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom"
+import { toast } from 'react-toastify'
 
 function Header(props) {
+    let loginStatus = localStorage.getItem("loginStatus") || false
+
+    const logout = () => {
+        if(window.confirm(`Are you sure to logout?`)) {
+            toast.success("Logout successful")
+            localStorage.removeItem('loginStatus')
+            window.location.reload();
+        } else {
+            return null;
+        }
+    }
+
     return(
         <header>
             <nav className="navbar navbar-expand-md navbar-dark bg-secondary">
@@ -12,28 +25,41 @@ function Header(props) {
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <div className="collapse navbar-collapse justify-content-between" id="menu">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <Link to={`/`} className="nav-link">Home</Link>
-                            </li>
+                    <div className= { loginStatus ? "collapse navbar-collapse justify-content-between" : "collapse navbar-collapse justify-content-end"} id="menu">
+                        {
+                            loginStatus ? (
+                                <ul className="navbar-nav">
+                                    <li className="nav-item">
+                                       <Link to={`/`} className="nav-link">Home</Link>
+                                    </li>
 
-                            <li className="nav-item">
-                                <Link to={`/*`} className="nav-link">About</Link>
-                            </li>
+                                    <li className="nav-item">
+                                       <Link to={`/*`} className="nav-link">About</Link>
+                                    </li>
+                                </ul> 
+                            ) : null
+                        }
 
-                        </ul> 
+                        {
+                            loginStatus ? (
+                                <ul className="navbar-nav">
+                                    <li className="nav-item">
+                                        <Link to={`/`} onClick={logout} className="nav-link btn btn-danger">Logout</Link>
+                                    </li>
+                                </ul>
+                            ) : (
+                                <ul className="navbar-nav">
+                                    <li className="nav-item">
+                                       <Link to={`/login`} className="nav-link">Login</Link>
+                                    </li>
 
-
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <Link to={`/login`} className="nav-link">Login</Link>
-                            </li>
-
-                            <li className="nav-item">
-                                <Link to={`/register`} className="nav-link">Register</Link>
-                            </li>
-                        </ul> 
+                                    <li className="nav-item">
+                                       <Link to={`/register`} className="nav-link">Register</Link>
+                                    </li>
+                                </ul>
+                            )
+                        }
+                         
                     </div> {/* collapse end */}
                 </div> {/* container end */}
             </nav>
