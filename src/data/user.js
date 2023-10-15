@@ -20,7 +20,6 @@ const registerUser = (user) => {
     }
 }
 
-
 const loginUser = async (user) => {
     let { email, password} = user;
     let extEmail = await users.find((item) => item.email === email);
@@ -29,6 +28,7 @@ const loginUser = async (user) => {
         } else {
             if(extEmail.password === password) {
                 localStorage.setItem('loginStatus', true)
+                localStorage.setItem('loginUser', JSON.stringify(email))
                 toast.success("Login successful");
                 setTimeout(function() {
                     window.location.href = "/";

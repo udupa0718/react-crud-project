@@ -10,7 +10,6 @@ import { ToastContainer } from "react-toastify"
 import Create from './component/default/Create'
 import Update from './component/default/Update'
 
-
 function App(props) {
   return (
     <BrowserRouter>
@@ -20,7 +19,7 @@ function App(props) {
               <Route element={<ProtectedRoute/>} >
                   <Route path={`/`} element={<Home/>} />
                   <Route path={`/create`} element={<Create/>} />
-                  <Route path={`/update/:id`} element={<Update/>} />
+                  <Route path={`/update/:bookId`} element={<Update/>} />
               </Route>
            <Route path={`/login`} element={<Login/>} />
            <Route path={`/register`} element={<Register/>} />
